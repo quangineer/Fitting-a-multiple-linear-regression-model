@@ -26,13 +26,12 @@ plt.hist(df.query("C == 1")['price'], alpha = 0.3, label = 'C');
 plt.hist(df.query("A == 1")['price'], alpha = 0.3, label = 'A');
 plt.hist(df.query("B == 1")['price'], alpha = 0.3, label = 'B');
 plt.legend(loc='best')
-plt.show();
+# plt.show();
 
 
-# df[["lodge", "ranch", "victorian"]] = pd.get_dummies(df["style"])
-# # print (df.head(5))
+df[["lodge", "ranch", "victorian"]] = pd.get_dummies(df["style"])
 
-# df['intercept'] = 1 
-# lm = sm.OLS(df["price"], df[['intercept','lodge','ranch']])
-# results = lm.fit()
-# print (results.summary()) 
+
+lm_aggregate_conglamorate = sm.OLS(df["price"], df[['intercept','lodge',"victorian", "B", "C", "bathrooms", "bedrooms"]])
+results_final = lm_aggregate_conglamorate.fit()
+print (results_final.summary()) 
